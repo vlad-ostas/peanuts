@@ -7,7 +7,7 @@
 # Will be the same pwd
 cd "$(dirname "$0")"
 
-echo "$PWD"
+# echo "$PWD"
 
 cmake -B ../build/Debug -S .. -D CMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc-12 -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 cmake --build ../build/Debug --target all -t test
