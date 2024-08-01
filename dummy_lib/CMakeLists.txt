@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(dummy
+project(dummy-lib
         VERSION 1.0
         LANGUAGES CXX)
 
@@ -45,4 +45,6 @@ add_library(${PROJECT_NAME} STATIC
                ${HEADERS}
                ${SOURCES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC includes)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+
+add_subdirectory("test")

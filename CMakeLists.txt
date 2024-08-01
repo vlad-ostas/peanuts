@@ -16,6 +16,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # message("--- CONFIGURATION INFO END ---")
 # message("")
 
+enable_testing()
 add_subdirectory("dummy_lib")
 
 add_compile_options(
@@ -50,4 +51,4 @@ add_executable(${PROJECT_NAME}
                ${HEADERS}
                ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE dummy-lib)
+target_link_libraries(${PROJECT_NAME} PUBLIC dummy-lib)
