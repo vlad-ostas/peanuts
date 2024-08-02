@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(dummy-lib
+project(dummy
         VERSION 1.0
         LANGUAGES CXX)
 

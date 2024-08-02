@@ -51,4 +51,4 @@ add_executable(${PROJECT_NAME}
                ${HEADERS}
                ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC dummy-lib)
+target_link_libraries(${PROJECT_NAME} PUBLIC dummy)
