@@ -1,9 +1,7 @@
 #include "logger.h"
-#include "manip.h"
+#include "manipulator.h"
 
-void show_log_levels() {
-    std::cout << "Show logger levels, current global logger level is " << logger::level_name[logger::global_config.level] << std::endl;
-
+void log_all_levels() {
     DEBUG_MSG << "Debug message" << logger::endl;
     INFO_MSG  << "Info message"  << logger::endl;
     WARN_MSG  << "Warn message"  << logger::endl;
@@ -11,35 +9,68 @@ void show_log_levels() {
     FATAL_MSG << "Fatal message" << logger::endl;
 }
 
+const logger::Level log_level_array [] = {
+    logger::Level::none_,
+    logger::Level::fatal_,
+    logger::Level::error_,
+    logger::Level::warn_,
+    logger::Level::info_,
+    logger::Level::debug_
+};
 
 
 int main()
 {
-
-    // LOG LEVELS, ENDL, HEAD
-    const logger::Level log_level_array [] = {
-        logger::Level::none_,
-        logger::Level::fatal_,
-        logger::Level::error_,
-        logger::Level::warn_,
-        logger::Level::info_,
-        logger::Level::debug_
-    };
+    std::cout << "\n==========LOG LEVELS===========" << std::endl;
 
     for (auto cur_level : log_level_array) {
         logger::global_config.level = cur_level;
-        show_log_levels();
+
+        std::cout << "\tCurrent log level is " << logger::level_name[cur_level] << ":" << std::endl;
+        log_all_levels();
     }
 
-    DEBUG_MSG << "Hi!" << logger::endl;
+    std::cout << "\n=======SWITCHING COLORS========" << std::endl;
+    {
+        logger::global_config.color = false;
 
-    // GLOBAL CONFIG, LOCAL CONFIGS
+        std::cout << "\tTurned log colors OFF:" << std::endl;
+        log_all_levels();
+
+        logger::global_config.color = true;
+
+        std::cout << "\tTurned log colors ON:" << std::endl;
+        log_all_levels();
+    }
+
+    std::cout << "\n=========LOGGER CONFIG=========" << std::endl;
+    {
+        std::cout << "Current logger::info configuration:" << std::endl;
+        logger::info.print_configuration();
+        INFO_MSG << "Example message here" << logger::endl;
 
 
+        logger::LoggerConfig new_debug_config = {
+            logger::Level::info_,
+            logger::Color::pink,
+            false,
+            false,
+            false,
+        };
 
-    // COLORS
+        logger::info << new_debug_config;
 
-    
+        std::cout << "New logger::info configuration:" << std::endl;
+        logger::info.print_configuration();
+        INFO_MSG << "Example message here" << logger::endl;
+
+
+        logger::info << logger::defaults_info;
+
+        std::cout << "Turning logger::info back to defaults:" << std::endl;
+        logger::info.print_configuration();
+        INFO_MSG << "Example message here" << logger::endl;
+    }
 
     return 0;
 }

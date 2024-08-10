@@ -9,27 +9,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # GCC style
-# add_compile_options(
-#     # -Werror
-#     # -Wpaded?
-#     -Wall
-#     -Wextra
-#     -Wpedantic
-#     -Wcast-align
-#     -Wcast-qual
-#     -Wconversion
-#     -Wctor-dtor-privacy
-#     -Wenum-compare
-#     -Wfloat-equal
-#     -Wnon-virtual-dtor
-#     -Wold-style-cast
-#     -Woverloaded-virtual
-#     -Wredundant-decls
-#     -Wsign-conversion
-#     -Wsign-promo)
+add_compile_options(
+    # -Werror
+    # -Wpaded?
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Wcast-align
+    -Wcast-qual
+    -Wconversion
+    -Wctor-dtor-privacy
+    -Wenum-compare
+    -Wfloat-equal
+    -Wnon-virtual-dtor
+    -Wold-style-cast
+    -Woverloaded-virtual
+    -Wredundant-decls
+    -Wsign-conversion
+    -Wsign-promo)
 
 # MSVC style
-add_compile_options()
+# add_compile_options()
 
 if(NOT CMAKE_CXX_EXTENSIONS)
   set(CMAKE_CXX_EXTENSIONS OFF)
