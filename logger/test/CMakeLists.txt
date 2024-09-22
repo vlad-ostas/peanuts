@@ -8,13 +8,13 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(TEST1 test-logger-1)
+set(TEST_BASIC test-logger-basic)
 
-add_executable(${TEST1} test.cpp)
+add_executable(${TEST_BASIC} test.cpp)
 
-target_link_libraries(${TEST1} logger)
+target_link_libraries(${TEST_BASIC} logger)
 
-add_test(logger-1 ${TEST1})
+add_test(logger-basic ${TEST_BASIC})
 
 # NOTE(Akumanory): Example if you want to run test while building
 # actually it is POST BUILD but still does what I have in mind for now
