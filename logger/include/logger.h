@@ -62,17 +62,17 @@ public:
 /// @brief Logger base logic, all manipulations and configs here.
 class LoggerBase {
 protected:
-    LoggerConfig config;
+    LoggerConfig m_config;
 
 private:
-    std::ostream* ostream_ptr;
+    std::ostream* m_ostream_ptr;
 
 public:
     LoggerBase()                              = delete;
     LoggerBase(const LoggerBase&)             = delete;
     LoggerBase& operator= (const LoggerBase&) = delete;
 
-    LoggerBase(std::ostream& ostream_, const LoggerConfig& logger_config_) : ostream_ptr(&ostream_), config(logger_config_) {}
+    LoggerBase(std::ostream& ostream_, const LoggerConfig& logger_config_) : m_ostream_ptr(&ostream_), m_config(logger_config_) {}
 
 public:
     inline LoggerBase& operator<< ( LoggerBase& (*log_manip)(LoggerBase&) ) {
@@ -80,18 +80,18 @@ public:
     }
     
     inline LoggerBase& operator<< ( std::ostream& (*std_manip)(std::ostream&) ) {
-        *ostream_ptr << (*std_manip);
+        *m_ostream_ptr << (*std_manip);
         return *this;
     }
 
     template <typename T>
     inline LoggerBase& operator<< (const T& input) {
-        *ostream_ptr << input;
+        *m_ostream_ptr << input;
         return *this;
     }
 
     inline LoggerBase& operator<< (const LoggerConfig& new_logger_config) {
-        config = new_logger_config; 
+        m_config = new_logger_config; 
         return *this;
     }
 
@@ -120,14 +120,14 @@ public:
     LoggerBase& operator<< ( std::ostream& (*std_manip)(std::ostream&) );
 
     inline Logger& operator<< (const LoggerConfig& new_logger_config) {
-        LoggerBase::config = new_logger_config; 
+        LoggerBase::m_config = new_logger_config; 
         return *this;
     }
 
     template <typename T>
     inline LoggerBase& operator<< (const T& input) {
         LoggerBase* base;
-        if (LoggerBase::config.level <= global_config.level) {
+        if (LoggerBase::m_config.level <= global_config.level) {
             base = this;
         }
         else 

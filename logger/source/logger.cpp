@@ -27,7 +27,7 @@ LoggerBase logger_base_null(null_ostream, defaults_none);
 
 LoggerBase& logger::Logger::operator<< ( LoggerBase& (*log_manip)(LoggerBase&) ) {
     LoggerBase* base;
-    if (LoggerBase::config.level <= global_config.level)
+    if (LoggerBase::m_config.level <= global_config.level)
         base = this;
     else 
         base = &logger_base_null;
@@ -36,7 +36,7 @@ LoggerBase& logger::Logger::operator<< ( LoggerBase& (*log_manip)(LoggerBase&) )
 
 LoggerBase& logger::Logger::operator<< ( std::ostream& (*std_manip)(std::ostream&) ) {
     LoggerBase* base;
-    if (LoggerBase::config.level <= global_config.level)
+    if (LoggerBase::m_config.level <= global_config.level)
         base = this;
     else 
         base = &logger_base_null;
@@ -44,14 +44,14 @@ LoggerBase& logger::Logger::operator<< ( std::ostream& (*std_manip)(std::ostream
 }
 
 void LoggerBase::print_configuration() const {
-    if (config.level > global_config.level) {
+    if (m_config.level > global_config.level) {
         return;
     }
-    *ostream_ptr << "Level:\t\t" << level_name[config.level] << '\n'
-                 << "Color:\t\t" << color_name[config.color] << '\n'
-                 << "Head time:\t"   << ((config.head_time)   ? "ON" : "OFF") << '\n'
-                 << "Head level:\t"  << ((config.head_level)  ? "ON" : "OFF") << '\n'
-                 << "Head thread:\t" << ((config.head_thread) ? "ON" : "OFF") << std::endl;
+    *m_ostream_ptr << "Level:\t\t" << level_name[m_config.level] << '\n'
+                 << "Color:\t\t" << color_name[m_config.color] << '\n'
+                 << "Head time:\t"   << ((m_config.head_time)   ? "ON" : "OFF") << '\n'
+                 << "Head level:\t"  << ((m_config.head_level)  ? "ON" : "OFF") << '\n'
+                 << "Head thread:\t" << ((m_config.head_thread) ? "ON" : "OFF") << std::endl;
 }
 
 } // namespace logger

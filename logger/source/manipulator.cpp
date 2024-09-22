@@ -7,7 +7,7 @@ namespace logger{
 
 LoggerBase& head(LoggerBase& base) {
     if (global_config.color) 
-        switch (base.config.color)
+        switch (base.m_config.color)
         {
         case Color::white:
             base << LOGGER_PAINT_WHITE;      break;
@@ -29,15 +29,15 @@ LoggerBase& head(LoggerBase& base) {
             base << LOGGER_PAINT_PINK;       break;
         }
 
-    if (base.config.head_time) {
+    if (base.m_config.head_time) {
         base << "[" << std::chrono::zoned_time{std::chrono::current_zone(), std::chrono::system_clock::now()} << "] ";
     }
 
-    if (base.config.head_level) {
-        base << "[" << level_name[base.config.level] << "] ";
+    if (base.m_config.head_level) {
+        base << "[" << level_name[base.m_config.level] << "] ";
     }
 
-    if (base.config.head_thread) {
+    if (base.m_config.head_thread) {
         base << "[thr " << std::this_thread::get_id() << "] ";
     }
 
