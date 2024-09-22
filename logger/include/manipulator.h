@@ -6,6 +6,10 @@
 
 namespace logger {
 
+LoggerBase& head_level(LoggerBase& base);
+LoggerBase& head_time(LoggerBase& base);
+LoggerBase& head_thread(LoggerBase& base);
+
 /// @brief Print head info log, example: "[warning][03.08.2024 22:41:34.241][thread 140113018054400]"
 /// @param base source object
 /// @return Source object
