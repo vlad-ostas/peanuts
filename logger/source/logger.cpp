@@ -39,11 +39,3 @@ void LoggerBase::print_configuration() const {
 }
 
 } // namespace logger
-
-// struct LoggerConfig {
-//     Level level      = Level::none_;
-//     Color color      = Color::white;
-//     bool head_level  = false;    // [WARNING]
-//     bool head_time   = false;    // [03-08-2024 22:41.241]
-//     bool head_thread = false;    // [thr 140113018054400]
-// };

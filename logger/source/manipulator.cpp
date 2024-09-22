@@ -1,4 +1,5 @@
 #include "manipulator.h"
+
 #include "format.h"
 
 #include <chrono>

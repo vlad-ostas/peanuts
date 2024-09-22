@@ -1,5 +1,3 @@
-#pragma once
-
 #include "logger.h"
 
 namespace logger {

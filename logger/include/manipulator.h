@@ -20,14 +20,6 @@ LoggerBase& endl(LoggerBase& base);
 
 
 
-/* Next definitions help you get external debug info like function names and source file with line number. Next code example shall explain:
-CODE:                                                                                                       RESULT:
-logger::debug << "Some logger message, using only logger" << std::endl;                                     Some logger message, using only logger
-logger::debug << STATIC_HEAD << "Some logger message, using logger with STATIC_HEAD define" << std::endl;   [main] [D:\Coding\Projects\peanuts\logger\test\test.cpp 11] Some logger message, using logger with STATIC_HEAD define
-logger::debug << logger::head << "Some logger message, using logger with head manipulator" << std::endl;    [2024-08-10 14:05:16.714] [DEBUG] [thr 8900] Some logger message, using logger with head manipulator
-DEBUG_MSG << "Some logger message, using DEBUG_MSG define" << std::endl;                                    [2024-08-10 14:05:16.714] [DEBUG] [thr 8900] [main] [D:\Coding\Projects\peanuts\logger\test\test.cpp 11] Some logger message, using DEBUG_MSG define
-*/
-
 // constexpr const char* cut_file_name(const char* path) {
 //     const char* file = path;
 //     while (*path++) {
