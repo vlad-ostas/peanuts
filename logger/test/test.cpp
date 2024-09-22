@@ -2,11 +2,11 @@
 #include "manipulator.h"
 
 void log_all_levels() {
-    DEBUG_MSG << "Debug message" << logger::endl;
-    INFO_MSG  << "Info message"  << logger::endl;
-    WARN_MSG  << "Warn message"  << logger::endl;
-    ERROR_MSG << "Error message" << logger::endl;
-    FATAL_MSG << "Fatal message" << logger::endl;
+    logger::debug   << logger::head << "Debug message" << logger::endl;
+    logger::info    << logger::head << "Info message"  << logger::endl;
+    logger::warning << logger::head << "Warn message"  << logger::endl;
+    logger::error   << logger::head << "Error message" << logger::endl;
+    logger::fatal   << logger::head << "Fatal message" << logger::endl;
 }
 
 const logger::Level log_level_array [] = {
@@ -47,7 +47,7 @@ int main()
     {
         std::cout << "Current logger::info configuration:" << std::endl;
         logger::info.print_configuration();
-        INFO_MSG << "Example message here" << logger::endl;
+        logger::info << logger::head << "Example message here" << logger::endl;
 
 
         logger::LoggerConfig new_debug_config = {
@@ -62,7 +62,7 @@ int main()
 
         std::cout << "New logger::info configuration:" << std::endl;
         logger::info.print_configuration();
-        INFO_MSG << "Example message here" << logger::endl;
+        logger::info << logger::head << "Example message here" << logger::endl;
     }
 
     return 0;

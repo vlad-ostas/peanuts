@@ -176,7 +176,7 @@ public:
 
 extern Logger debug;    // defaults: std::cout, level 5 (logger::Level::debug_)
 extern Logger info;     // defaults: std::cout, level 4 (logger::Level::info_)
-extern Logger warn;     // defaults: std::cout, level 3 (logger::Level::warn_)
+extern Logger warning;  // defaults: std::cout, level 3 (logger::Level::warn_)
 extern Logger error;    // defaults: std::cerr, level 2 (logger::Level::error_)
 extern Logger fatal;    // defaults: std::cerr, level 1 (logger::Level::fatal_)
 

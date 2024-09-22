@@ -14,11 +14,11 @@ GlobalConfig global_config;
 
 
 
-Logger debug(std::cout, defaults_debug);
-Logger info (std::cout, defaults_info);
-Logger warn (std::cout, defaults_warn);
-Logger error(std::cerr, defaults_error);
-Logger fatal(std::cerr, defaults_fatal);
+Logger debug  (std::cout, defaults_debug);
+Logger info   (std::cout, defaults_info);
+Logger warning(std::cout, defaults_warn);
+Logger error  (std::cerr, defaults_error);
+Logger fatal  (std::cerr, defaults_fatal);
 
 NullOstream null_ostream;
 LoggerBase logger_base_null(null_ostream, defaults_none);

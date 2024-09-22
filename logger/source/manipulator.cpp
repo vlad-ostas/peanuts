@@ -11,31 +11,31 @@ LoggerBase& head(LoggerBase& base) {
         switch (base.m_config.color)
         {
         case Color::White:
-            base << LOGGER_PAINT_WHITE;
+            base << format::ANSI::white;
             break;
         case Color::Red:
-            base << LOGGER_PAINT_RED;
+            base << format::ANSI::red;
             break;
         case Color::Orange:
-            base << LOGGER_PAINT_ORANGE;
+            base << format::ANSI::orange;
             break;
         case Color::Yellow:
-            base << LOGGER_PAINT_YELLOW;
+            base << format::ANSI::yellow;
             break;
         case Color::Green:
-            base << LOGGER_PAINT_GREEN;
+            base << format::ANSI::green;
             break;
         case Color::LightBlue:
-            base << LOGGER_PAINT_LIGHT_BLUE;
+            base << format::ANSI::light_blue;
             break;
         case Color::DarkBlue:
-            base << LOGGER_PAINT_DARK_BLUE;
+            base << format::ANSI::dark_blue;
             break;
         case Color::Violet:
-            base << LOGGER_PAINT_VIOLET;
+            base << format::ANSI::violet;
             break;
         case Color::Pink:
-            base << LOGGER_PAINT_PINK;
+            base << format::ANSI::pink;
             break;
         default:
             break;
@@ -57,7 +57,7 @@ LoggerBase& head(LoggerBase& base) {
 }
 
 LoggerBase& endl(LoggerBase& base) {
-    base << LOGGER_ALL_RESET << std::endl;
+    base << format::ANSI::reset_all << std::endl;
     return base;
 }
 
