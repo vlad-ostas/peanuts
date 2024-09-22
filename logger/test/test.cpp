@@ -3,11 +3,12 @@
 #include "preset.h"
 
 void log_all_levels() {
-    logger::debug   << logger::head << "Debug message" << logger::endl;
-    logger::info    << logger::head << "Info message"  << logger::endl;
-    logger::warning << logger::head << "Warn message"  << logger::endl;
-    logger::error   << logger::head << "Error message" << logger::endl;
-    logger::fatal   << logger::head << "Fatal message" << logger::endl;
+    logger::verbose << logger::head << "Verbose message" << logger::endl;
+    logger::debug   << logger::head << "Debug message"   << logger::endl;
+    logger::info    << logger::head << "Info message"    << logger::endl;
+    logger::warning << logger::head << "Warn message"    << logger::endl;
+    logger::error   << logger::head << "Error message"   << logger::endl;
+    logger::fatal   << logger::head << "Fatal message"   << logger::endl;
 }
 
 const logger::Level log_level_array [] = {
@@ -16,7 +17,8 @@ const logger::Level log_level_array [] = {
     logger::Level::Error,
     logger::Level::Warning,
     logger::Level::Info,
-    logger::Level::Debug
+    logger::Level::Debug,
+    logger::Level::Verbose
 };
 
 
