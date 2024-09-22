@@ -10,27 +10,38 @@ LoggerBase& head(LoggerBase& base) {
         switch (base.m_config.color)
         {
         case Color::white:
-            base << LOGGER_PAINT_WHITE;      break;
+            base << LOGGER_PAINT_WHITE;
+            break;
         case Color::red:
-            base << LOGGER_PAINT_RED;        break;
+            base << LOGGER_PAINT_RED;
+            break;
         case Color::orange:
-            base << LOGGER_PAINT_ORANGE;     break;
+            base << LOGGER_PAINT_ORANGE;
+            break;
         case Color::yellow:
-            base << LOGGER_PAINT_YELLOW;     break;
+            base << LOGGER_PAINT_YELLOW;
+            break;
         case Color::green:
-            base << LOGGER_PAINT_GREEN;      break;
+            base << LOGGER_PAINT_GREEN;
+            break;
         case Color::l_blue:
-            base << LOGGER_PAINT_LIGHT_BLUE; break;
+            base << LOGGER_PAINT_LIGHT_BLUE;
+            break;
         case Color::d_blue:
-            base << LOGGER_PAINT_DARK_BLUE;  break;
+            base << LOGGER_PAINT_DARK_BLUE;
+            break;
         case Color::violet:
-            base << LOGGER_PAINT_VIOLET;     break;
+            base << LOGGER_PAINT_VIOLET;
+            break;
         case Color::pink:
-            base << LOGGER_PAINT_PINK;       break;
+            base << LOGGER_PAINT_PINK;
+            break;
+        default:
+            break;
         }
 
     if (base.m_config.head_time) {
-        base << "[" << std::chrono::zoned_time{std::chrono::current_zone(), std::chrono::system_clock::now()} << "] ";
+        base << "[" << std::chrono::zoned_time{std::chrono::current_zone(), std::chrono::system_clock::now()} << "] ";  // TODO: make configurable, make code clean
     }
 
     if (base.m_config.head_level) {
