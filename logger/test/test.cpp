@@ -63,13 +63,6 @@ int main()
         std::cout << "New logger::info configuration:" << std::endl;
         logger::info.print_configuration();
         INFO_MSG << "Example message here" << logger::endl;
-
-
-        logger::info << logger::defaults_info;
-
-        std::cout << "Turning logger::info back to defaults:" << std::endl;
-        logger::info.print_configuration();
-        INFO_MSG << "Example message here" << logger::endl;
     }
 
     return 0;

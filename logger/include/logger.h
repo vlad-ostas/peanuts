@@ -37,16 +37,6 @@ struct LoggerConfig {
     bool head_thread = false;    // [thr 140113018054400]
 };
 
-/// @brief Global logger config - all loggers use this config to format it's output.
-extern GlobalConfig global_config;
-
-/// @brief Local logger default configs for default loggers.
-extern const LoggerConfig defaults_none;
-extern const LoggerConfig defaults_debug;
-extern const LoggerConfig defaults_info;
-extern const LoggerConfig defaults_warn;
-extern const LoggerConfig defaults_error;
-extern const LoggerConfig defaults_fatal;
 
 
 /// @brief NullOstream object is only needed for a logger::none object, so all input goes nowhere.
@@ -105,6 +95,9 @@ public:
 /// @brief Null output destination for Logger.
 extern LoggerBase logger_base_null;
 
+/// @brief Global logger config - all loggers use this config to format it's output.
+extern GlobalConfig global_config;
+
 /// @brief Logger levels logic, checks if global logger level approves this logger and just passes it to it's LoggerBase part.
 /// If global logger level disaproves this logger, than all logs go to a null LoggerBase.
 class Logger : public LoggerBase {
@@ -135,6 +128,7 @@ public:
         return *base << input;
     }
 };
+
 
 extern Logger debug;    // defaults: std::cout, level 5 (logger::Level::debug_)
 extern Logger info;     // defaults: std::cout, level 4 (logger::Level::info_)
