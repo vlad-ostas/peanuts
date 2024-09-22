@@ -7,15 +7,15 @@ namespace logger {
 
 /// @brief Text colors.
 enum class Color {
-    white,
-    red,
-    orange,
-    yellow,
-    green,
-    l_blue,
-    d_blue,
-    violet,
-    pink 
+    White,
+    Red,
+    Orange,
+    Yellow,
+    Green,
+    LightBlue,
+    DarkBlue,
+    Violet,
+    Pink 
 };
 
 /// @brief Get text colors as const char*.
@@ -39,12 +39,13 @@ inline const char* color_name(Color enum_color) {
 
 /// @brief Log levels enumerator.
 enum class Level {
-    none_,
-    fatal_,
-    error_,
-    warn_,
-    info_,
-    debug_
+    None,
+    Fatal,
+    Error,
+    Warning,
+    Info,
+    Debug,
+    Verbose
 };
 
 /// @brief Get log levels as const char*.
@@ -55,7 +56,8 @@ inline const char* level_name(Level enum_level) {
         "ERROR",
         "WARNING",
         "INFO",
-        "DEBUG"
+        "DEBUG",
+        "VERBOSE"
     };
 
     const char* str_level = level_name[static_cast<size_t>(enum_level)];
@@ -66,14 +68,14 @@ inline const char* level_name(Level enum_level) {
 
 /// @brief Global logger config - global log level, enable-disable colors state.
 struct GlobalConfig {
-    Level level = Level::debug_;
+    Level level = Level::Debug;
     bool  color = true;
 };
 
 /// @brief Local logger config - 
 struct LoggerConfig {
-    Level level      = Level::none_;
-    Color color      = Color::white;
+    Level level      = Level::None;
+    Color color      = Color::White;
     bool head_time   = false;    // [03-08-2024 22:41.241]
     bool head_level  = false;    // [WARNING]
     bool head_thread = false;    // [thr 140113018054400]

@@ -3,12 +3,12 @@
 namespace logger {
 
 // struct LoggerConfig            { Level level,    Color color,    bool head_time,  bool head_level,  bool head_thread };
-const LoggerConfig defaults_none  { Level::none_ ,  Color::white ,  false,           false,            false            };
-const LoggerConfig defaults_debug { Level::debug_,  Color::white ,  true,            true,             true             };
-const LoggerConfig defaults_info  { Level::info_ ,  Color::green ,  true,            true,             true             };
-const LoggerConfig defaults_warn  { Level::warn_ ,  Color::yellow,  true,            true,             true             };
-const LoggerConfig defaults_error { Level::error_,  Color::orange,  true,            true,             true             };
-const LoggerConfig defaults_fatal { Level::fatal_,  Color::red   ,  true,            true,             true             };
+const LoggerConfig defaults_none  { Level::None,    Color::White,   false,           false,            false            };
+const LoggerConfig defaults_debug { Level::Debug,   Color::White,   true,            true,             true             };
+const LoggerConfig defaults_info  { Level::Info,    Color::Green,   true,            true,             true             };
+const LoggerConfig defaults_warn  { Level::Warning, Color::Yellow,  true,            true,             true             };
+const LoggerConfig defaults_error { Level::Error,   Color::Orange,  true,            true,             true             };
+const LoggerConfig defaults_fatal { Level::Fatal,   Color::Red,     true,            true,             true             };
 
 GlobalConfig global_config;
 

@@ -10,12 +10,12 @@ void log_all_levels() {
 }
 
 const logger::Level log_level_array [] = {
-    logger::Level::none_,
-    logger::Level::fatal_,
-    logger::Level::error_,
-    logger::Level::warn_,
-    logger::Level::info_,
-    logger::Level::debug_
+    logger::Level::None,
+    logger::Level::Fatal,
+    logger::Level::Error,
+    logger::Level::Warning,
+    logger::Level::Info,
+    logger::Level::Debug
 };
 
 
@@ -51,8 +51,8 @@ int main()
 
 
         logger::LoggerConfig new_debug_config = {
-            logger::Level::info_,
-            logger::Color::pink,
+            logger::Level::Info,
+            logger::Color::Pink,
             false,
             false,
             false,

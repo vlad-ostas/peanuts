@@ -10,31 +10,31 @@ LoggerBase& head(LoggerBase& base) {
     if (global_config.color) 
         switch (base.m_config.color)
         {
-        case Color::white:
+        case Color::White:
             base << LOGGER_PAINT_WHITE;
             break;
-        case Color::red:
+        case Color::Red:
             base << LOGGER_PAINT_RED;
             break;
-        case Color::orange:
+        case Color::Orange:
             base << LOGGER_PAINT_ORANGE;
             break;
-        case Color::yellow:
+        case Color::Yellow:
             base << LOGGER_PAINT_YELLOW;
             break;
-        case Color::green:
+        case Color::Green:
             base << LOGGER_PAINT_GREEN;
             break;
-        case Color::l_blue:
+        case Color::LightBlue:
             base << LOGGER_PAINT_LIGHT_BLUE;
             break;
-        case Color::d_blue:
+        case Color::DarkBlue:
             base << LOGGER_PAINT_DARK_BLUE;
             break;
-        case Color::violet:
+        case Color::Violet:
             base << LOGGER_PAINT_VIOLET;
             break;
-        case Color::pink:
+        case Color::Pink:
             base << LOGGER_PAINT_PINK;
             break;
         default:
