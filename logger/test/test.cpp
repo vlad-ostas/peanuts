@@ -1,5 +1,6 @@
 #include "logger.h"
 #include "manipulator.h"
+#include "preset.h"
 
 void log_all_levels() {
     logger::debug   << logger::head << "Debug message" << logger::endl;
