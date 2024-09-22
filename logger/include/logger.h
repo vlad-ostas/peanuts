@@ -51,12 +51,6 @@ public:
 
 /// @brief Logger base logic, all manipulations and configs here.
 class LoggerBase {
-protected:
-    LoggerConfig m_config;
-
-private:
-    std::ostream* m_ostream_ptr;
-
 public:
     LoggerBase()                              = delete;
     LoggerBase(const LoggerBase&)             = delete;
@@ -88,6 +82,12 @@ public:
     void print_configuration() const;
 
     friend LoggerBase& head(LoggerBase& base);
+
+protected:
+    LoggerConfig m_config;
+
+private:
+    std::ostream* m_ostream_ptr;
 };
 
 
