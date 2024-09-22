@@ -46,7 +46,7 @@ LoggerBase& head(LoggerBase& base) {
     }
 
     if (base.m_config.head_level) {
-        base << "[" << level_name[base.m_config.level] << "] ";
+        base << "[" << level_name(base.m_config.level) << "] ";
     }
 
     if (base.m_config.head_thread) {

@@ -47,8 +47,8 @@ void LoggerBase::print_configuration() const {
     if (m_config.level > global_config.level) {
         return;
     }
-    *m_ostream_ptr << "Level:\t\t" << level_name[m_config.level] << '\n'
-                 << "Color:\t\t" << color_name[m_config.color] << '\n'
+    *m_ostream_ptr << "Level:\t\t" << level_name(m_config.level) << '\n'
+                 << "Color:\t\t" << color_name(m_config.color) << '\n'
                  << "Head time:\t"   << ((m_config.head_time)   ? "ON" : "OFF") << '\n'
                  << "Head level:\t"  << ((m_config.head_level)  ? "ON" : "OFF") << '\n'
                  << "Head thread:\t" << ((m_config.head_thread) ? "ON" : "OFF") << std::endl;

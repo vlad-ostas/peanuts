@@ -26,7 +26,7 @@ int main()
     for (auto cur_level : log_level_array) {
         logger::global_config.level = cur_level;
 
-        std::cout << "\tCurrent log level is " << logger::level_name[cur_level] << ":" << std::endl;
+        std::cout << "\tCurrent log level is " << logger::level_name(cur_level) << ":" << std::endl;
         log_all_levels();
     }
 

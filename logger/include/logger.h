@@ -1,24 +1,66 @@
 #pragma once
 
 #include <iostream>
+#include <unordered_map>
 
 namespace logger {
 
 /// @brief Text colors.
-enum Color
-    { white, red, orange, yellow, green, l_blue, d_blue, violet, pink };
+enum class Color {
+    white,
+    red,
+    orange,
+    yellow,
+    green,
+    l_blue,
+    d_blue,
+    violet,
+    pink 
+};
 
-/// @brief Text colors char* array, indexes are compatible with Color enum.
-const char* const color_name[] =
-    { "WHITE", "RED", "ORANGE", "YELLOW", "GREEN", "LIGHT BLUE", "DARK BLUE", "VIOLET", "PINK" };
+/// @brief Get text colors as const char*.
+inline const char* color_name(Color enum_color) {
+    static const char* const color_name[] = {
+        "WHITE",
+        "RED",
+        "ORANGE",
+        "YELLOW",
+        "GREEN",
+        "LIGHT BLUE",
+        "DARK BLUE",
+        "VIOLET",
+        "PINK"
+    };
 
-/// @brief Log level enumerator.
-enum Level 
-    { none_, fatal_, error_, warn_, info_, debug_ };
+    const char* str_color = color_name[static_cast<size_t>(enum_color)];
+    return str_color;
+}
 
-/// @brief Log level char* array, indexes are compatible with Level enum.
-const char* const level_name[] = 
-    { "NONE", "FATAL", "ERROR", "WARNING", "INFO", "DEBUG" };
+
+/// @brief Log levels enumerator.
+enum class Level {
+    none_,
+    fatal_,
+    error_,
+    warn_,
+    info_,
+    debug_
+};
+
+/// @brief Get log levels as const char*.
+inline const char* level_name(Level enum_level) {
+    static const char* const level_name[] = {
+        "NONE",
+        "FATAL",
+        "ERROR",
+        "WARNING",
+        "INFO",
+        "DEBUG"
+    };
+
+    const char* str_level = level_name[static_cast<size_t>(enum_level)];
+    return str_level;
+}
 
 
 
