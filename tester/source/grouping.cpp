@@ -1,80 +1,31 @@
-#include <string>
-#include <tester.h>
-#include <iostream>
+#include "test.h"
+#include <grouping.h>
 
 namespace tester {
-
-Test::Test(
-    TestType type,
-    bool condition,
-    std::string case_name,
-    std::string suite_name,
-    std::string fail_message)
-        : _condition(condition),
-          _type(type),
-          _case_name(case_name),
-          _suite_name(suite_name),
-          _fail_message(fail_message) {
-
-}
-
-void Test::set_case(std::string case_name) {
-    _case_name = case_name;
-}
-
-void Test::set_suite(std::string suite_name) {
-    _suite_name = suite_name;
-}
-
-TestResult Test::run() {
-    TestResult res = _result_of(_type, _condition);
-    _is_run = true;
-    
-    if (res != TestResult::Pass) {
-        _print_on_fail();
-    }
-
-    return res;
-}
-
-TestResult Test::_result_of(TestType type, bool condition) {
-    auto res = TestResult::None;
-    switch (type) {
-        case TestType::Assert:
-            res = (condition ? TestResult::Pass : TestResult::Fatal);
-            break;
-
-        case TestType::Expect:
-            res = (condition ? TestResult::Pass : TestResult::Fail);
-            break;
-
-        default:
-            // code should not end up here
-            break;
-    }
-    return res;
-}
-
-void Test::_print_on_fail() {
-    std::cout << (_type == TestType::Assert ? "Assert" : "Expect") << " "
-              << "fail ("
-              << "Suite: " << _suite_name << ", "
-              << "Case:" << _case_name << "): "
-              << _fail_message << std::endl;
-}
-
-
-
-
-
 
 TestCase::TestCase(std::string case_name) : _case_name(case_name) {
 
 }
 
-void TestCase::add_test(Test& test) {
+void TestCase::add_test(Test&& test) {
     test.set_case(_case_name);
     _tests.push_back(test);
+}
+
+void TestCase::assert(bool condition, std::string fail_message) {
+    add_test({TestType::Assert, condition, fail_message});
+}
+
+void TestCase::assert(bool condition) {
+    add_test({TestType::Assert, condition});
+}
+
+void TestCase::expect(bool condition, std::string fail_message) {
+    add_test({TestType::Expect, condition, fail_message});
+}
+
+void TestCase::expect(bool condition) {
+    add_test({TestType::Expect, condition});
 }
 
 void TestCase::set_suite(std::string& suite_name) {
@@ -105,11 +56,6 @@ TestResult TestCase::run() {
     
     return case_result;
 }
-
-
-
-
-
 
 
 TestSuite::TestSuite(std::string suite_name) : _suite_name(suite_name) {

@@ -11,8 +11,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # GCC style
 if(NOT MSVC)
     add_compile_options(
-        # -Werror
-        # -Wpaded?
         -Wall
         -Wextra
         -Wpedantic

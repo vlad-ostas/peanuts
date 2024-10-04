@@ -18,6 +18,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 enable_testing()
 add_subdirectory("dummy_module")
+add_subdirectory("tester")
 
 add_compile_options(
     # -Werror
@@ -51,4 +52,4 @@ add_executable(${PROJECT_NAME}
                ${HEADERS}
                ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC dummy)
+target_link_libraries(${PROJECT_NAME} PUBLIC dummy tester)
