@@ -1,5 +1,6 @@
-#include "test.h"
-#include <tester.h>
+#include <test.h>
+#include <grouping.h>
+
 #include <iostream>
 
 namespace tester {
@@ -7,12 +8,10 @@ namespace tester {
 Test::Test(
     TestType type,
     bool condition,
-    std::string case_name,
-    std::string suite_name,
+    TestCase* test_case,
     std::string fail_message)
         : _condition(condition),
-          _suite_name(suite_name),
-          _case_name(case_name),
+          _test_case(test_case),
           _type(type),
           _fail_message(fail_message) {
 
@@ -22,7 +21,7 @@ Test::Test(
     TestType type,
     bool condition,
     std::string fail_message)
-        : Test(type, condition, "No case", "No suite", fail_message) {
+        : Test(type, condition, nullptr, fail_message) {
 
 }
 
@@ -33,25 +32,22 @@ Test::Test(
 
 }
 
-void Test::set_case(std::string case_name) {
-    _case_name = case_name;
-}
-
-void Test::set_suite(std::string suite_name) {
-    _suite_name = suite_name;
+void Test::set_case(TestCase* test_case) {
+    _test_case = test_case;
 }
 
 void Test::set_fail_message(std::string fail_message) {
     _fail_message = fail_message;
 }
 
+TestCase* Test::get_case() {
+    return _test_case;
+}
+
 TestResult Test::run() {
     TestResult res = _result_of(_type, _condition);
-    _is_run = true;
     
-    if (res != TestResult::Pass) {
-        _print_on_fail();
-    }
+    _print_result(res);
 
     return res;
 }
@@ -74,12 +70,36 @@ TestResult Test::_result_of(TestType type, bool condition) {
     return res;
 }
 
-void Test::_print_on_fail() {
-    std::cout << (_type == TestType::Assert ? "Assert" : "Expect") << " "
-              << "fail ("
-              << "Suite: " << _suite_name << ", "
-              << "Case:" << _case_name << "): "
-              << _fail_message << std::endl;
+void Test::_print_result(TestResult result) {
+    std::string result_str;
+    switch (result) {
+        case TestResult::Pass:
+            result_str = "PASS";
+            break;
+        case TestResult::Fail:
+            result_str = "FAIL";
+            break;
+        case TestResult::Fatal:
+            result_str = "FATAL";
+            break;
+        default:
+            result_str = "NONE";
+            break;
+    }
+
+    auto* test_case = get_case();
+    std::string case_name = ((test_case != nullptr) ? test_case->get_name() : "null");
+    TestSuite* suite = ((test_case != nullptr) ? test_case->get_suite() : nullptr);
+    std::string suite_name = ((suite != nullptr) ? suite->get_name() : "null");
+
+    std::cout << "[Suite: " << suite_name << "]"
+              << "[Case: " << case_name << "]"
+              << " " << (_type == TestType::Assert ? "Assert" : "Expect")
+              << " " << result_str;
+    if (result != TestResult::Pass) {
+        std::cout << ": " << _fail_message;
+    }
+    std::cout << std::endl;
 }
 
 

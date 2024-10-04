@@ -16,13 +16,13 @@ enum class TestResult {
     Fatal
 };
 
+class TestCase;
 
 class Test {
 public:
     Test(TestType type,
          bool condition,
-         std::string case_name,
-         std::string suite_name,
+         TestCase* test_case,
          std::string fail_message);
     Test(TestType type,
          bool condition,
@@ -30,21 +30,20 @@ public:
     Test(TestType type,
          bool condition);
 
-    void set_case(std::string case_name);
-    void set_suite(std::string suite_name);
+    void set_case(TestCase* test_case);
     void set_fail_message(std::string fail_message);
+
+    TestCase* get_case();
 
     TestResult run();
 
 private:
     static TestResult _result_of(TestType type, bool condition);
-    void _print_on_fail();
+    void _print_result(TestResult result);
 
 private:
     bool _condition;
-    bool _is_run = false;
-    std::string _suite_name;
-    std::string _case_name;
+    TestCase* _test_case;
     TestType _type;
     std::string _fail_message;
 };

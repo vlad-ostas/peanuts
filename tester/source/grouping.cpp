@@ -8,7 +8,7 @@ TestCase::TestCase(std::string case_name) : _case_name(case_name) {
 }
 
 void TestCase::add_test(Test&& test) {
-    test.set_case(_case_name);
+    test.set_case(this);
     _tests.push_back(test);
 }
 
@@ -28,10 +28,16 @@ void TestCase::expect(bool condition) {
     add_test({TestType::Expect, condition});
 }
 
-void TestCase::set_suite(std::string& suite_name) {
-    for (auto& test : _tests) {
-        test.set_suite(suite_name);
-    }
+void TestCase::set_suite(TestSuite* suite) {
+    _suite = suite;
+}
+
+std::string TestCase::get_name() {
+    return _case_name;
+}
+
+TestSuite* TestCase::get_suite() {
+    return _suite;
 }
 
 TestResult TestCase::run() {
@@ -63,8 +69,12 @@ TestSuite::TestSuite(std::string suite_name) : _suite_name(suite_name) {
 }
 
 void TestSuite::add_case(TestCase& test_case) {
-    test_case.set_suite(_suite_name);
+    test_case.set_suite(this);
     _cases.push_back(test_case);
+}
+
+std::string TestSuite::get_name() {
+    return _suite_name;
 }
 
 TestResult TestSuite::run() {
