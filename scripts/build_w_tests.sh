@@ -9,8 +9,17 @@ cd "$(dirname "$0")"
 
 # echo "$PWD"
 
-cmake -B ../build/Debug -S .. -D CMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc-12 -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_TOOLCHAIN_FILE="./conan_modules/debug/conan_toolchain.cmake"
-cmake --build ../build/Debug --target all -t test
+cmake \
+    -B ../build/Debug \
+    -S .. \
+    -D CMAKE_BUILD_TYPE:STRING=Debug \
+    -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc-12 \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
+    -DCMAKE_TOOLCHAIN_FILE="./conan_modules/debug/conan_toolchain.cmake"
+cmake \
+    --build ../build/Debug \
+    --target all \
+    -t test
 
 
 
