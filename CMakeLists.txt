@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.23)
 
 project(Peanut
         VERSION 1.0
@@ -23,20 +23,21 @@ add_compile_options(
     # -Werror
     # -Wpaded?
     -Wall
-    -Wextra
-    -Wpedantic
-    -Wcast-align
-    -Wcast-qual
-    -Wconversion
-    -Wctor-dtor-privacy
-    -Wenum-compare
-    -Wfloat-equal
-    -Wnon-virtual-dtor
-    -Wold-style-cast
-    -Woverloaded-virtual
-    -Wredundant-decls
-    -Wsign-conversion
-    -Wsign-promo)
+    # -Wextra
+    # -Wpedantic
+    # -Wcast-align
+    # -Wcast-qual
+    # -Wconversion
+    # -Wctor-dtor-privacy
+    # -Wenum-compare
+    # -Wfloat-equal
+    # -Wnon-virtual-dtor
+    # -Wold-style-cast
+    # -Woverloaded-virtual
+    # -Wredundant-decls
+    # -Wsign-conversion
+    # -Wsign-promo
+    )
 
 if(NOT CMAKE_CXX_EXTENSIONS)
   set(CMAKE_CXX_EXTENSIONS OFF)
