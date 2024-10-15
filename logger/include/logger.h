@@ -33,14 +33,14 @@ public:
     LoggerBase& operator<< ( std::ostream& (*std_manip)(std::ostream&) );
 
     inline Logger& operator<< (const LoggerConfig& new_logger_config) {
-        LoggerBase::m_config = new_logger_config; 
+        LoggerBase::_config = new_logger_config; 
         return *this;
     }
 
     template <typename T>
     inline LoggerBase& operator<< (const T& input) {
         LoggerBase* base;
-        if (LoggerBase::m_config.level <= global_config.level) {
+        if (LoggerBase::_config.level <= global_config.level) {
             base = this;
         }
         else 

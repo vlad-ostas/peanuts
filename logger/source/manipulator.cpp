@@ -51,12 +51,11 @@ namespace {
 
 LoggerBase& set_color(LoggerBase& base) {
     if (global_config.color) {
-        base << color_exit_code(base.m_config.color);
+        base << color_exit_code(base._config.color);
     }
 
     return base;
 }
-
 
 LoggerBase& reset_color(LoggerBase& base) {
     if (global_config.color) {
@@ -65,10 +64,11 @@ LoggerBase& reset_color(LoggerBase& base) {
     return base;
 }
 
+
 LoggerBase& head_time(LoggerBase& base) {
     std::stringstream message;
 
-    if (base.m_config.head_time) {
+    if (base._config.head_time) {
         message << "[" << std::setw(33) << std::chrono::zoned_time{std::chrono::current_zone(), std::chrono::system_clock::now()} << "]";  // TODO: make configurable, make code clean   TODO: Make auto-generating size numbers
     }
 
@@ -79,14 +79,14 @@ LoggerBase& head_time(LoggerBase& base) {
 LoggerBase& head_level(LoggerBase& base) {
     std::stringstream message;
 
-    if (base.m_config.head_level) {
+    if (base._config.head_level) {
         message << "[";
 
         if (global_config.color) {
-            message << color_exit_code(base.m_config.color) << std::setw(7) << level_name(base.m_config.level) << format::ANSI::reset_color;
+            message << color_exit_code(base._config.color) << std::setw(7) << level_name(base._config.level) << format::ANSI::reset_color;
         }
         else {
-            message << std::setw(7) << level_name(base.m_config.level);
+            message << std::setw(7) << level_name(base._config.level);
         }
 
         message << "]";
@@ -99,7 +99,7 @@ LoggerBase& head_level(LoggerBase& base) {
 LoggerBase& head_thread(LoggerBase& base) {
     std::stringstream message;
 
-    if (base.m_config.head_thread) {
+    if (base._config.head_thread) {
         message << "[thr " << std::setw(6) << std::this_thread::get_id() << "]";
     }
 
