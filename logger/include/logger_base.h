@@ -67,7 +67,7 @@ public:
     LoggerBase(const LoggerBase&)             = delete;
     LoggerBase& operator= (const LoggerBase&) = delete;
 
-    LoggerBase(std::ostream& ostream_, const LoggerConfig& logger_config_) : _ostream_ptr(&ostream_), _config(logger_config_) {}
+    LoggerBase(std::ostream& ostream_, const LoggerConfig& logger_config_) : _config(logger_config_), _ostream_ptr(&ostream_) {}
 
 public:
     inline LoggerBase& operator<< ( LoggerBase& (*log_manip)(LoggerBase&) ) {
