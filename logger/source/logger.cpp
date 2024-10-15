@@ -4,7 +4,7 @@ namespace logger {
 
 GlobalConfig global_config;
 
-NullOstream null_ostream;
+extern NullOstream null_ostream; // defined in logger_base.cpp
 LoggerBase logger_base_null(null_ostream, LoggerConfig());
 
 

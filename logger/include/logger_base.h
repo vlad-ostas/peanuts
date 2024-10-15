@@ -3,6 +3,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <thread>
+#include <mutex>
 
 namespace logger {
 
@@ -56,6 +57,8 @@ public:
 };
 
 
+/// @brief Return-value for error cases.
+extern NullOstream null_ostream;
 
 /// @brief Logger base logic, all manipulations and configs here.
 class LoggerBase {
@@ -97,11 +100,17 @@ public:
     friend LoggerBase& head_thread  (LoggerBase& base);
     friend LoggerBase& head         (LoggerBase& base);
 
+private:
+    std::ostream& get_current_log_buffer();
+
 protected:
     LoggerConfig _config;
 
 private:
     std::ostream* _ostream_ptr;
+
+    std::unordered_map<std::thread::id, std::ostream> _log_buffers;
+    std::mutex _buf_mtx;
 };
 
 }   // namespace logger
