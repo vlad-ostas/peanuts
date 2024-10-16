@@ -113,8 +113,19 @@ LoggerBase& head(LoggerBase& base) {
 }
 
 
+LoggerBase& flush(LoggerBase& base) {
+    auto& cur_log_buf = base.get_current_log_buffer();
+
+    *(base._ostream_ptr) << cur_log_buf.str() << std::flush;
+
+    cur_log_buf.str(std::string());
+    cur_log_buf.clear();
+
+    return base;
+}
+
 LoggerBase& endl(LoggerBase& base) {
-    base << format::ANSI::reset_all << std::endl;
+    base << format::ANSI::reset_all << '\n' << logger::flush;
     return base;
 }
 

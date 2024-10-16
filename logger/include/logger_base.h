@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <unordered_map>
 #include <thread>
 #include <mutex>
@@ -75,13 +76,13 @@ public:
     }
     
     inline LoggerBase& operator<< ( std::ostream& (*std_manip)(std::ostream&) ) {
-        *_ostream_ptr << (*std_manip);
+        get_current_log_buffer() << (*std_manip);
         return *this;
     }
 
     template <typename T>
     inline LoggerBase& operator<< (const T& input) {
-        *_ostream_ptr << input;
+        get_current_log_buffer() << input;
         return *this;
     }
 
@@ -99,9 +100,11 @@ public:
     friend LoggerBase& head_level   (LoggerBase& base);
     friend LoggerBase& head_thread  (LoggerBase& base);
     friend LoggerBase& head         (LoggerBase& base);
+    friend LoggerBase& flush        (LoggerBase& base);
+    friend LoggerBase& endl         (LoggerBase& base);
 
 private:
-    std::ostream& get_current_log_buffer();
+    std::ostringstream& get_current_log_buffer();
 
 protected:
     LoggerConfig _config;
@@ -109,7 +112,7 @@ protected:
 private:
     std::ostream* _ostream_ptr;
 
-    std::unordered_map<std::thread::id, std::ostream> _log_buffers;
+    std::unordered_map<std::thread::id, std::ostringstream> _log_buffers;
     std::mutex _buf_mtx;
 };
 

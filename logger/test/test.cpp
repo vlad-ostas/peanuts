@@ -2,6 +2,9 @@
 #include "manipulator.h"
 #include "preset.h"
 
+#include <thread>
+#include <vector>
+
 void log_all_levels() {
     logger::verbose << logger::head << "Verbose message" << logger::endl;
     logger::debug   << logger::head << "Debug message"   << logger::endl;
@@ -27,7 +30,8 @@ int main()
     std::cout << "\n==========LOG LEVELS===========" << std::endl;
 
     for (auto cur_level : log_level_array) {
-        logger::global_config.level = cur_level;
+        // logger::global_config.level = cur_level;
+        logger::global_config.level = logger::Level::Verbose;
 
         std::cout << "\tCurrent log level is " << logger::level_name(cur_level) << ":" << std::endl;
         log_all_levels();
@@ -66,6 +70,50 @@ int main()
         std::cout << "New logger::info configuration:" << std::endl;
         logger::info.print_configuration();
         logger::info << logger::head << "Example message here" << logger::endl;
+    }
+
+    std::cout << "\n=========MULTITHREADING========" << std::endl;
+    {
+        constexpr size_t THREAD_NUMBER = 4;
+        constexpr size_t INPUT_NUMBER = 50;
+
+        std::vector<std::thread> thr_vec;
+        thr_vec.reserve(THREAD_NUMBER);
+
+        for (size_t i = 0; i < THREAD_NUMBER; i++) {
+            thr_vec.emplace_back([&](){
+                for (size_t k = 0; k < INPUT_NUMBER; k++) {
+                    logger::debug << std::this_thread::get_id();
+                    // std::cout << std::this_thread::get_id();
+                } 
+                logger::debug << logger::endl;
+                // std::cout << std::endl;
+            });
+        }
+
+        for (size_t i = 0; i < THREAD_NUMBER; i++) {
+            thr_vec[i].join();
+        }
+    }
+    {
+        constexpr size_t THREAD_NUMBER = 4;
+        constexpr size_t INPUT_NUMBER = 50;
+
+        std::vector<std::thread> thr_vec;
+        thr_vec.reserve(THREAD_NUMBER);
+
+        for (size_t i = 0; i < THREAD_NUMBER; i++) {
+            thr_vec.emplace_back([&](){
+                for (size_t k = 0; k < INPUT_NUMBER; k++) {
+                    std::cout << std::this_thread::get_id();
+                } 
+                std::cout << std::endl;
+            });
+        }
+
+        for (size_t i = 0; i < THREAD_NUMBER; i++) {
+            thr_vec[i].join();
+        }
     }
 
     return 0;
