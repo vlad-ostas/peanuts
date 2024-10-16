@@ -1,6 +1,9 @@
 #pragma once
 
+#include "handler.h"
+
 #include <string>
+#include <memory>
 
 namespace tester {
 
@@ -9,52 +12,33 @@ enum class TestType {
     Expect
 };
 
-enum class TestResult {
-    None,
-    Pass,
-    Fail,
-    Fatal
-};
-
 class TestCase;
 
-class Test {
+class Test : public TestEntity {
 public:
     Test(TestType type,
          bool condition,
-         TestCase* test_case,
-         std::string fail_message);
-    Test(TestType type,
-         bool condition,
-         std::string fail_message);
-    Test(TestType type,
-         bool condition);
+         std::string fail_message,
+         std::shared_ptr<TestCase> test_case);
 
-    void set_case(TestCase* test_case);
+    void set_case(TestCase& test_case);
     void set_fail_message(std::string fail_message);
 
-    TestCase* get_case();
+    std::shared_ptr<TestCase>& get_case();
 
-    TestResult run();
+    TestResult run() override;
 
 private:
     static TestResult _result_of(TestType type, bool condition);
-    void _print_result(TestResult result);
+    void _print_result(TestResult result) override;
 
 private:
     bool _condition;
-    TestCase* _test_case;
+    std::shared_ptr<TestCase> _test_case;
     TestType _type;
     std::string _fail_message;
 };
 
-Test test(TestType type, bool condition, std::string fail_message);
-Test test(TestType type, bool condition);
-
-Test assert(bool condition, std::string fail_message);
-Test assert(bool condition);
-
 Test expect(bool condition, std::string fail_message);
-Test expect(bool condition);
 
 } // namespace tester

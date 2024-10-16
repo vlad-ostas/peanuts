@@ -1,6 +1,7 @@
 #include <test.h>
 #include <grouping.h>
 
+#include <memory>
 #include <iostream>
 
 namespace tester {
@@ -8,8 +9,8 @@ namespace tester {
 Test::Test(
     TestType type,
     bool condition,
-    TestCase* test_case,
-    std::string fail_message)
+    std::string fail_message = "No message",
+    std::shared_ptr<TestCase> test_case = nullptr)
         : _condition(condition),
           _test_case(test_case),
           _type(type),
@@ -17,30 +18,15 @@ Test::Test(
 
 }
 
-Test::Test(
-    TestType type,
-    bool condition,
-    std::string fail_message)
-        : Test(type, condition, nullptr, fail_message) {
-
-}
-
-Test::Test(
-    TestType type,
-    bool condition)
-        : Test(type, condition, "no message") {
-
-}
-
-void Test::set_case(TestCase* test_case) {
-    _test_case = test_case;
+void Test::set_case(TestCase& test_case) {
+    _test_case = std::shared_ptr<TestCase>(&test_case);
 }
 
 void Test::set_fail_message(std::string fail_message) {
     _fail_message = fail_message;
 }
 
-TestCase* Test::get_case() {
+std::shared_ptr<TestCase>& Test::get_case() {
     return _test_case;
 }
 
@@ -87,10 +73,10 @@ void Test::_print_result(TestResult result) {
             break;
     }
 
-    auto* test_case = get_case();
-    std::string case_name = ((test_case != nullptr) ? test_case->get_name() : "null");
-    TestSuite* suite = ((test_case != nullptr) ? test_case->get_suite() : nullptr);
-    std::string suite_name = ((suite != nullptr) ? suite->get_name() : "null");
+    auto& test_case = get_case();
+    std::string case_name = (test_case ? test_case->get_name() : "null");
+    std::shared_ptr<TestSuite> suite = (test_case ? test_case->get_suite() : nullptr);
+    std::string suite_name = (suite ? suite->get_name() : "null");
 
     std::cout << "[Suite: " << suite_name << "]"
               << "[Case: " << case_name << "]"
@@ -102,29 +88,8 @@ void Test::_print_result(TestResult result) {
     std::cout << std::endl;
 }
 
-
-Test test(TestType type, bool condition, std::string fail_message) {
-    return {type, condition, fail_message};
-}
-
-Test test(TestType type, bool condition) {
-    return {type, condition};
-}
-
-Test assert(bool condition, std::string fail_message) {
-    return {TestType::Assert, condition, fail_message};
-}
-
-Test assert(bool condition) {
-    return {TestType::Assert, condition};
-}
-
-Test expect(bool condition, std::string fail_message) {
+Test expect(bool condition, std::string fail_message = "No message") {
     return {TestType::Expect, condition, fail_message};
-}
-
-Test expect(bool condition) {
-    return {TestType::Expect, condition};
 }
 
 } // namespace tester

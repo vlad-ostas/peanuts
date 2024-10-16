@@ -18,8 +18,7 @@ cmake \
     -DCMAKE_TOOLCHAIN_FILE="./conan_modules/debug/conan_toolchain.cmake"
 cmake \
     --build ../build/Debug \
-    --target all \
-    -t test
-
-
-
+    --target all
+ctest \
+    --test-dir ../build/Debug \
+    --verbose

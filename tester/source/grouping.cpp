@@ -1,5 +1,8 @@
-#include "test.h"
+#include <test.h>
 #include <grouping.h>
+
+#include <memory>
+#include <iostream>
 
 namespace tester {
 
@@ -8,35 +11,27 @@ TestCase::TestCase(std::string case_name) : _case_name(case_name) {
 }
 
 void TestCase::add_test(Test&& test) {
-    test.set_case(this);
+    test.set_case(*this);
     _tests.push_back(test);
 }
 
-void TestCase::assert(bool condition, std::string fail_message) {
-    add_test({TestType::Assert, condition, fail_message});
+void TestCase::assert(bool condition, std::string fail_message = "No message") {
+    add_test({TestType::Assert, condition, fail_message, nullptr});
 }
 
-void TestCase::assert(bool condition) {
-    add_test({TestType::Assert, condition});
+void TestCase::expect(bool condition, std::string fail_message = "No message") {
+    add_test({TestType::Expect, condition, fail_message, nullptr});
 }
 
-void TestCase::expect(bool condition, std::string fail_message) {
-    add_test({TestType::Expect, condition, fail_message});
-}
-
-void TestCase::expect(bool condition) {
-    add_test({TestType::Expect, condition});
-}
-
-void TestCase::set_suite(TestSuite* suite) {
-    _suite = suite;
+void TestCase::set_suite(TestSuite& suite) {
+    _suite = std::make_shared<TestSuite>(suite);
 }
 
 std::string TestCase::get_name() {
     return _case_name;
 }
 
-TestSuite* TestCase::get_suite() {
+std::shared_ptr<TestSuite>& TestCase::get_suite() {
     return _suite;
 }
 
@@ -63,13 +58,38 @@ TestResult TestCase::run() {
     return case_result;
 }
 
+void TestCase::_print_result(TestResult result) {
+    std::string result_str;
+    switch (result) {
+        case TestResult::Pass:
+            result_str = "PASS";
+            break;
+        case TestResult::Fail:
+            result_str = "FAIL";
+            break;
+        case TestResult::Fatal:
+            result_str = "FATAL";
+            break;
+        default:
+            result_str = "NONE";
+            break;
+    }
+    auto suite = this->get_suite();
+    std::string suite_name = (suite ? suite->get_name() : "null");
+
+    std::cout << "[Suite: " << suite_name << "]"
+              << " Test case \"" << _case_name << "\""
+              << " " << result_str
+              << std::endl;
+}
+
 
 TestSuite::TestSuite(std::string suite_name) : _suite_name(suite_name) {
 
 }
 
 void TestSuite::add_case(TestCase& test_case) {
-    test_case.set_suite(this);
+    test_case.set_suite(*this);
     _cases.push_back(test_case);
 }
 
@@ -107,6 +127,27 @@ TestResult TestSuite::run() {
     }
     
     return suite_result;
+}
+
+void TestSuite::_print_result(TestResult result) {
+        std::string result_str;
+    switch (result) {
+        case TestResult::Pass:
+            result_str = "PASS";
+            break;
+        case TestResult::Fail:
+            result_str = "FAIL";
+            break;
+        case TestResult::Fatal:
+            result_str = "FATAL";
+            break;
+        default:
+            result_str = "NONE";
+            break;
+    }
+    std::cout << " Test suite \"" << _suite_name << "\""
+              << " " << result_str
+              << std::endl;
 }
 
 } // namespace tester
