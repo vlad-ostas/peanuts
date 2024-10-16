@@ -38,3 +38,9 @@ build/
 
 # File
 compile_commands.json
+
+# conan
+conan_modules/
+
+# cmake
+CMakeUserPresets.json

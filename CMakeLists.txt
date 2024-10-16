@@ -43,6 +43,9 @@ if(NOT CMAKE_CXX_EXTENSIONS)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
+find_package(glfw3)
+find_package(glad)
+
 set(SOURCES
     main.cpp)
 
@@ -52,4 +55,4 @@ add_executable(${PROJECT_NAME}
                ${HEADERS}
                ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC dummy tester)
+target_link_libraries(${PROJECT_NAME} PUBLIC dummy tester glfw glad::glad)
