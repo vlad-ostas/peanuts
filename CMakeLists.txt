@@ -16,8 +16,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # message("--- CONFIGURATION INFO END ---")
 # message("")
 
-enable_testing()
-add_subdirectory("dummy_module")
 
 add_compile_options(
     # -Werror
@@ -44,6 +42,10 @@ endif()
 
 find_package(glfw3)
 find_package(glad)
+
+enable_testing()
+add_subdirectory("dummy_module")
+add_subdirectory("render")
 
 set(SOURCES
     main.cpp)
