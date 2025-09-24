@@ -1,6 +1,19 @@
+#include <events/events.h>
+
 #include <iostream>
-int main()
-{
-    std::cout << "Emulating test running \n" ;
-    return 0;
+
+
+int main() {
+    using namespace pn::events;
+    EventLoop loop;
+
+    loop.add_handler({ 
+        EventType::first, 
+        []() { 
+            std::cout << "Event loop is working!" << std::endl;
+        } 
+    });
+
+    Event event = { EventType::first };
+    loop.trigger_event(event);
 }
