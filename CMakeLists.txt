@@ -18,6 +18,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 enable_testing()
 add_subdirectory("dummy_module")
+add_subdirectory("events")
 
 add_compile_options(
     # -Werror
@@ -74,6 +75,10 @@ add_executable(${PROJECT_NAME}
                ${HEADERS}
                ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC dummy glfw glad::glad)
+target_link_libraries(${PROJECT_NAME} PUBLIC dummy 
+    glfw 
+    glad::glad
+    events
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${IMGUI_DIR})
