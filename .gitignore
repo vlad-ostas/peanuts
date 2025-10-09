@@ -44,3 +44,6 @@ conan_modules/
 
 # cmake
 CMakeUserPresets.json
+
+# imgui
+imgui.ini
