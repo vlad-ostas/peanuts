@@ -45,13 +45,35 @@ endif()
 find_package(glfw3)
 find_package(glad)
 
-set(SOURCES
-    main.cpp)
 
-set(HEADERS)
+set(IMGUI_DIR 3rdparty/imgui)
+file(GLOB IMGUI_HEADERS ${IMGUI_DIR}/*.h)
+file(GLOB IMGUI_SOURCES ${IMGUI_DIR}/*.cpp)
+set(IMGUI_IMPL_HEADERS 
+        ${IMGUI_DIR}/backends/imgui_impl_glfw.h
+        ${IMGUI_DIR}/backends/imgui_impl_opengl3.h
+)
+set(IMGUI_IMPL_SOURCES 
+        ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
+        ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp
+)
+
+
+set(SOURCES
+        ${IMGUI_SOURCES}
+        ${IMGUI_IMPL_SOURCES}
+        main.cpp
+)
+
+set(HEADERS
+        ${IMGUI_HEADERS}
+        ${IMGUI_IMPL_HEADERS}
+)
 
 add_executable(${PROJECT_NAME}
                ${HEADERS}
                ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC dummy glfw glad::glad)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${IMGUI_DIR})
