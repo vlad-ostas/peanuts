@@ -8,7 +8,8 @@ set(TEST1 test-reder-1)
 
 add_executable(${TEST1} test.cpp)
 
-target_link_libraries(${TEST1} window)
+# target_link_libraries(${TEST1} window)
+target_link_libraries(${TEST1} PUBLIC glfw glad::glad)
 
 add_test(render-1 ${TEST1})
 

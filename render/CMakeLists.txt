@@ -34,7 +34,7 @@ project(render
 #     source/*.cpp
 #     main.cpp)
 
-# NOTE(akumanory): 
+# NOTE(akumanory):
 # GLOB_RECURSE searces recursevly in given directory for the given pattern
 # can be used as an upgrade for 'set' in projects that uses 'include' and 'source' pattern
 
@@ -48,5 +48,5 @@ project(render
 # target_include_directories(${PROJECT_NAME} PUBLIC include
 # // TODO(Akumanory): Пока что хватит только добавления субдиректорий лол
 
-add_subdirectory("window")
+# add_subdirectory("window")
 add_subdirectory("test")

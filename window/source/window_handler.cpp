@@ -1,11 +1,8 @@
 #include "window_handler.h"
 #include <iostream>
+#include <memory>
 #include <tuple>
 
-WindowHandler::WindowHandler()
-{
-    Initialize(settings::SCR_WIDTH, settings::SCR_HEIGHT, framebuffer_size_callback);
-}
 
 WindowHandler::WindowHandler(int32_t width, int32_t height)
 {
@@ -13,11 +10,14 @@ WindowHandler::WindowHandler(int32_t width, int32_t height)
 }
 
 WindowHandler::WindowHandler(int32_t width, int32_t height, GLFWframebuffersizefun callback)
-{
-    Initialize(width, height, callback);
-}
+    : m_initialized(Initialize(width, height, callback));
+{}
 
-const GLFWwindow* WindowHandler::get_window_handler() const
+WindowHandler::WindowHandler()
+    : WindowHandler(settings::SCR_WIDTH, settings::SCR_HEIGHT, framebuffer_size_callback)
+{}
+
+std::shared_ptr<GLFWwindow> WindowHandler::get_window_handler() const
 {
     return m_window;
 }
@@ -35,21 +35,22 @@ bool WindowHandler::Initialize(int32_t width, int32_t height, GLFWframebuffersiz
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    m_window = glfwCreateWindow(
+    m_window = std::make_shared<GLFWwindow>(glfwCreateWindow(
         width,
         height,
         "LearnOpenGL",
         nullptr,
-        nullptr);
+        nullptr));
 
     if (m_window == nullptr)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cout << "Failed to create GLFW window/n";
         glfwTerminate();
         return false;
     }
-    glfwMakeContextCurrent(m_window);
-    glfwSetFramebufferSizeCallback(m_window, callback);
+    glfwMakeContextCurrent(m_window.get());
+    glfwSetFramebufferSizeCallback(m_window.get(), callback);
+
 
     return true;
 }
