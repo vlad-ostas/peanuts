@@ -55,8 +55,8 @@ void CustomThreadPool::WorkerThread()
         //  TODO stopFlag_.load() ?
         if ( workPaused_ )
         {
-            std::unique_lock lk( mutex_ );
-            condVar.wait( lk, [this]() { return stopFlag_ || !workPaused_; } );
+            std::unique_lock lock( mutex_ );
+            condVar.wait( lock, [this]() { return stopFlag_ || !workPaused_; } );
         }
         if ( stopFlag_ && workQueue_.IsEmpty() )
         {
