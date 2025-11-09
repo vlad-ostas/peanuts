@@ -13,7 +13,6 @@ cmake \
     -B ../build/Debug \
     -S .. \
     -D CMAKE_BUILD_TYPE:STRING=Debug \
-    -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc-13 \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
     -DCMAKE_TOOLCHAIN_FILE="./conan_modules/debug/conan_toolchain.cmake"
 cmake \
